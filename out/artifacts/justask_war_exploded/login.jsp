@@ -4,6 +4,6 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$
+  $END$ THIS IS LOGIN PAGE
   </body>
 </html>
