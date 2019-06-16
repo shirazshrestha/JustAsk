@@ -13,10 +13,12 @@
 
 <h1>JustAsk!</h1>
 <h5>Post your queries and get answers. <em>Simple as that!</em></h5>
-
 <form action="login" method="post" enctype="application/x-www-form-urlencoded">
     <div class="box">
         <div class="container">
+            <%if (request.getAttribute("message") != null) { %>
+            <p style="color: #DD0000;">${requestScope.get("message")}</p>
+            <% } %>
             <label for="username"><b>Username</b></label><br/>
             <input type="text" name="username" placeholder="Enter your username" required/> <br/>
 
@@ -24,7 +26,7 @@
             <input type="password" name="password" placeholder="Enter your password" required/> <br/>
 
             <button type="submit">Login</button>
-            <button type="submit">Register</button>
+            <a href="register">Register</a>
             <br/>
 
             <label>
