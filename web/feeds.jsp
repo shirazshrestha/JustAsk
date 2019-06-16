@@ -10,7 +10,7 @@
     <title>Feeds</title>
 </head>
 <body>
-<h1>List of feeds</h1>
+<%--<h1>List of feeds</h1>
 <c:forEach items="${requestScope.get('feeds')}" var="feed">
     <div class="row card">
         <div class="col-md-12">
@@ -19,6 +19,8 @@
             </a>
         </div>
     </div>
-</c:forEach>
+</c:forEach>--%>
+
+
 </body>
 </html>
