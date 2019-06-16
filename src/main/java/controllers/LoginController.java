@@ -2,34 +2,53 @@ package controllers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.*;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
+    Connection connection;
+
+    public LoginController() {
+        connection = DB.getConnection();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-//            Connection connection = DB.getConnection();
-//            ResultSet results = connection.createStatement().executeQuery("select * from user");
-//            while (results.next()) {
-//                String username = results.getString("username");
-//                String password = results.getString("password");
-//            }
-        } catch (Exception e) {
 
-            
-        } finally {
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
-        }
+        req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect(req.getContextPath() + "/feed");
+        try {
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            String remember = req.getParameter("remember");
+            PreparedStatement statement = connection.prepareStatement("select * from user where username=? and password=?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet result = statement.executeQuery();
+            if (!result.next()) {
+                throw new Exception("User does not exist.");
+            }
+            //start session
+            Integer id = result.getInt("id");
+            HttpSession session = req.getSession();
+            session.setAttribute("userId", id);
+
+            if (remember != null) {
+                Cookie cookie = new Cookie("user", id.toString());
+                cookie.setMaxAge(86400 * 30);
+                resp.addCookie(cookie);
+            }
+            resp.sendRedirect(req.getContextPath() + "/feed");
+        } catch (Exception e) {
+            req.setAttribute("message", e.getMessage());
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
+        }
     }
 }

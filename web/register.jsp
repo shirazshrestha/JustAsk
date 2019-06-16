@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/login.css" rel="stylesheet" type="text/css">
-    <title>Login</title>
+    <title>Register</title>
 
 
 </head>
@@ -23,19 +23,23 @@
             <label for="password"><b>Password</b></label><br/>
             <input type="password" name="password" placeholder="Enter your password" required/> <br/>
 
-            <button type="submit">Login</button>
+            <label for="firstname"><b>First name</b></label><br/>
+            <input type="text" name="firstname" placeholder="Enter your firstname" required/> <br/>
+
+            <label for="lastname"><b>Last name</b></label><br/>
+            <input type="password" name="lastname" placeholder="Enter your lastname" required/> <br/>
+
+            <label for="email"><b>Email</b></label><br/>
+            <input type="text" name="email" placeholder="Enter your email" required/> <br/>
+
+
             <button type="submit">Register</button>
             <br/>
 
-            <label>
-                <input type="checkbox" name="remember">Remember me
-            </label>
-        </div>
+            </div>
 
 
-        <div class="container">
-            <span class="psw"><a href="#">Forgot password?</a></span>
-        </div>
+
     </div>
 </form>
 
