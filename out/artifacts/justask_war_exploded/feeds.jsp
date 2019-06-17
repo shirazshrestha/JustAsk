@@ -47,13 +47,20 @@
     <form action="question" method="POST">
         <!--<textarea name="questiontitle" id="questiontitle" cols="100" rows="8" placeholder="Post your query"></textarea>-->
         <input type="text" name="questiontitle" id="questiontitle" placeholder="    Post your query">
-        <input type="text" name="tags" id="tag" placeholder="Insert tags">
+        <input type="text" name="tags" id="tag" placeholder="   Insert tags">
         <button id="justaskbtn" type="submit">JustAsk</button>
     </form>
 </div>
 
+<c:forEach items="${requestScope.get('feeds')}" var="feed">
 <div id="questionAnswerDisplayArea">
-    <p>Question Answers goes here</p>
+        <a href="/feeds/question/${feed.getId()}">
+            <h3>${feed.getTitle()}</h3>
+        </a>
+    <h6>Posted on: ${feed.getCreatedAt()}</h6>
+
+</div>
+    </c:forEach>
     <%--<h1>List of feeds</h1>
 <c:forEach items="${requestScope.get('feeds')}" var="feed">
     <div class="row card">
@@ -65,6 +72,6 @@
     </div>
 </c:forEach>--%>
 
-</div>
+
 </body>
 </html>

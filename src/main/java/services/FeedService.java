@@ -14,17 +14,19 @@ public class FeedService {
     Connection connection;
 
     public FeedService() {
+
         connection = DB.getConnection();
     }
 
     public List<Feed> getAllFeeds() {
         try {
-            ResultSet result = connection.prepareStatement("select * from question").executeQuery();
+            ResultSet result = connection.prepareStatement("select * from question LIMIT 5").executeQuery();
             List<Feed> feeds = new ArrayList<>();
             while (result.next()) {
                 Feed feed = new Feed();
                 feed.setId(result.getInt("id"));
                 feed.setTitle(result.getString("title"));
+                feed.setCreatedAt(result.getString("created_at"));
                 feeds.add(feed);
             }
             return feeds;
