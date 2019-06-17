@@ -5,11 +5,15 @@ public class Question {
     private Integer id;
     private String title;
     private Integer userId;
+    private String createdAt;
+    private String updatedAt;
 
-    public Question(Integer id, String title, Integer userId) {
+    public Question(Integer id, String title, Integer userId, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.userId = userId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public Integer getId() {
@@ -34,5 +38,21 @@ public class Question {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
