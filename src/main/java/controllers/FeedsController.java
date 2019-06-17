@@ -28,11 +28,23 @@ public class FeedsController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.setAttribute("tags", service.getAllTags());
-            req.setAttribute("feeds", service.getAllFeeds());
+
+            String tag = req.getParameter("tag");
+            if(tag != null){
+                req.setAttribute("feeds", service.getFeedsByTag(tag));
+            }else{
+                req.setAttribute("feeds", service.getAllFeeds());
+            }
+
+
+
+
         } catch (Exception e) {
             e.getMessage();
             req.setAttribute("tags", new ArrayList<Tag>());
         }
+
+
         req.getRequestDispatcher("feeds.jsp").forward(req, resp);
     }
 
