@@ -64,11 +64,40 @@
 </c:if>
 <%--<h1>List of feeds</h1>
 <c:forEach items="${requestScope.get('feeds')}" var="feed">
+<<<<<<< HEAD
 <div class="row card">
     <div class="col-md-12">
         <a href="/feeds/${feed.getId()}">
             <h3>${feed.getTitle()}</h3>
         </a>
+=======
+    <div id="questionAnswerDisplayArea">
+        <a href="${requestScope.getContextPath}/feed/${feed.getId()}">
+            <h3 class="title">${feed.getTitle()}</h3>
+        </a>
+
+        <!-- upvote Question -->
+        <a href="questionUpvote">
+        <img class="vote" src="images/upvote.png"></a>
+        <span>0</span>
+
+        <!-- downvote Question -->
+        <a href="questionDownvote">
+        <img class="vote" src="images/downvote.png"></a>
+        <span>0</span>
+
+        <h6>Posted on: ${feed.getCreatedAt()}</h6>
+
+    </div>
+</c:forEach>
+<%--<h1>List of feeds</h1>
+<c:forEach items="${requestScope.get('feeds')}" var="feed">
+<div class="row card">
+    <div class="col-md-12">
+        <a href="/feeds/${feed.getId()}">
+            <h3>${feed.getTitle()}</h3>
+        </a>
+>>>>>>> 26bfb33dc5b5bbd95589e36d516be9accd5e0b0c
     </div>
 </div>
 </c:forEach>--%>

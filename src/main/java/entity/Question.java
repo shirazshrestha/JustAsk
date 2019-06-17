@@ -8,11 +8,9 @@ public class Question {
     private String createdAt;
     private String updatedAt;
 
-
     public Question() {
 
     }
-
 
     public Question(Integer id, String title, Integer userId, String createdAt, String updatedAt) {
 

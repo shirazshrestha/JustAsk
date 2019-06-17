@@ -2,6 +2,7 @@ package services;
 
 import controllers.DB;
 import entity.Feed;
+import entity.Question;
 import entity.Tag;
 
 import java.sql.Connection;
@@ -53,5 +54,27 @@ public class FeedService {
             System.out.println(e.getMessage());
         }
         return tags;
+    }
+
+    public List<Question> getFeedsByTag(String tag) {
+
+        List<Question> questions = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from question WHERE id IN (SELECT question_id FROM question_tag WHERE tag = ?)");
+            statement.setString(1, tag);
+
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                Question question = new Question();
+                question.setId(results.getInt("id"));
+                question.setCreatedAt(results.getString("created_at"));
+                question.setTitle(results.getString("title"));
+                questions.add(question);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return questions;
     }
 }

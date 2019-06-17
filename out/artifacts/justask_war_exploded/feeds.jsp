@@ -53,23 +53,34 @@
 </div>
 
 <c:forEach items="${requestScope.get('feeds')}" var="feed">
-<div id="questionAnswerDisplayArea">
-        <a href="/feeds/question/${feed.getId()}">
+    <div id="questionAnswerDisplayArea">
+        <a href="${requestScope.getContextPath}/feed/${feed.getId()}">
+            <h3 class="title">${feed.getTitle()}</h3>
+        </a>
+
+        <!-- upvote Question -->
+        <a href="questionUpvote">
+        <img class="vote" src="images/upvote.png"></a>
+        <span>0</span>
+
+        <!-- downvote Question -->
+        <a href="questionDownvote">
+        <img class="vote" src="images/downvote.png"></a>
+        <span>0</span>
+
+        <h6>Posted on: ${feed.getCreatedAt()}</h6>
+
+    </div>
+</c:forEach>
+<%--<h1>List of feeds</h1>
+<c:forEach items="${requestScope.get('feeds')}" var="feed">
+<div class="row card">
+    <div class="col-md-12">
+        <a href="/feeds/${feed.getId()}">
             <h3>${feed.getTitle()}</h3>
         </a>
-    <h6>Posted on: ${feed.getCreatedAt()}</h6>
-
-</div>
-    </c:forEach>
-    <%--<h1>List of feeds</h1>
-<c:forEach items="${requestScope.get('feeds')}" var="feed">
-    <div class="row card">
-        <div class="col-md-12">
-            <a href="/feeds/${feed.getId()}">
-                <h3>${feed.getTitle()}</h3>
-            </a>
-        </div>
     </div>
+</div>
 </c:forEach>--%>
 
 
