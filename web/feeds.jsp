@@ -53,7 +53,7 @@
 </div>
 <c:if test="${requestScope.get('feeds') != null}">
     <c:forEach items="${requestScope.get('feeds')}" var="feed">
-        <div class="questionAnswerDisplayArea">
+        <div id="questionAnswerDisplayArea">
             <a href="answer?id=${feed.getId()}">
                 <h3>${feed.getTitle()}</h3>
             </a>
