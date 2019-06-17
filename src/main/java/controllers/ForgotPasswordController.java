@@ -53,6 +53,7 @@ public class ForgotPasswordController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("userId", id);
 
+
             resp.sendRedirect(req.getContextPath() + "/feed");
 
         } catch (Exception e) {

@@ -53,7 +53,7 @@
     <c:forEach items="${requestScope.get('feeds')}" var="feed">
         <div id="questionAnswerDisplayArea">
             <a href="answer?id=${feed.getId()}">
-                <h3 class="title">${feed.getTitle()}</h3>
+                <h3 class="title">Q. ${feed.getTitle()}</h3>
             </a>
             <!-- upvote Question -->
             <a href="#" class="upvoteQuestion" data-id = "${feed.getId()}">

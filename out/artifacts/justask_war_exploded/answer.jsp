@@ -42,16 +42,22 @@
     </form>
 </div>
 
+<%--display question title--%>
+<div id="queTitleForAnswerPage">
+    <h2>Q. ${question.getTitle()}</h2>
+</div>
+
+<%--display all answers of the question--%>
 <c:if test="${requestScope.get('answers') != null}">
     <c:forEach items="${requestScope.get('answers')}" var="answer">
         <div id="questionAnswerDisplayArea">
-            <h3 class="answercontent">${answer.getContent()}</h3>
+            <h3 class="answercontent">A. ${answer.getContent()}</h3>
             <h6 class="postedon">Posted on: ${answer.getCreatedAt()}</h6>
 
-            <%--<a href="#" class="upvote" data-id="${answer.getId()}">upvote</a>--%>
+                <%--<a href="#" class="upvote" data-id="${answer.getId()}">upvote</a>--%>
 
             <!-- upvote Question -->
-            <a href="#" class="upvote" data-id = "${answer.getId()}">
+            <a href="#" class="upvote" data-id="${answer.getId()}">
                 <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
             <span>0</span>
 
@@ -70,10 +76,11 @@
                 type: 'post',
                 dataType: 'json',
                 data: {id},
-                success: (res) => {
-                    console.log(res);
-                }
-            });
+                success: (res) = > {
+                console.log(res);
+        }
+        })
+            ;
         })
     })
 </script>
