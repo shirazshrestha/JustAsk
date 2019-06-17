@@ -37,6 +37,8 @@
 
 
             <button type="submit">Register</button>
+
+            <a id = "registerbtn" href="login">Back to Login</a>
             <br/>
 
             </div>

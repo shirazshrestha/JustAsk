@@ -127,3 +127,8 @@ input[type="text"]{
     background-color: #27ddbf;
     height: 20px;
 }
+
+.answercontent{
+    margin-left: 15px;
+    display:inline;
+}

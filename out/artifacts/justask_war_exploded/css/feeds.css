@@ -3,11 +3,13 @@ body {
     margin: auto;
     width: 1080px;
     font-family: Arial, Helvetica, sans-serif;
+    background-color:#F0F0F0;
+
 }
 
 .topnav {
     overflow: hidden;
-    background-color: rgb(177, 177, 230);
+    background-color: #27a3dd;
     border: 1px solid #000000;
     margin-top: 10px;
 }
@@ -32,14 +34,12 @@ body {
 }
 
 #title{
-    font-size: 35px;
-    line-height: 50px;
-    margin-left: 20px;
-    font-family: cursive;
+    margin-top: 15px;
+    padding: 20px;
 }
 
 #category{
-    border: 2px solid blue;
+    background-color: white;
     float: left;
     width: 200px;
     height: 100%;
@@ -49,11 +49,20 @@ body {
     list-style-type: none;
 }
 
+#categoryList li a{
+
+    font-size: 15px;
+    color: #2980b9;
+    text-decoration: none;
+    line-height: 30px;
+}
+
 #feedDisplayArea{
     float: right;
-    border: 2px solid red;
+    background-color: white;
     width: 80%;
     margin-top: 20px;
+    border: 2px solid #909090;
 }
 
 textarea{
@@ -93,7 +102,7 @@ input[type="text"]{
 
 #questionAnswerDisplayArea{
     float: right;
-    border: 2px solid maroon;
+    background-color: white;
     width: 80%;
     margin-top: 20px;
     height: 100px;
@@ -105,4 +114,16 @@ input[type="text"]{
 }
 .title{
     display:inline;
+    margin-left: 15px;
+}
+
+.postedon{
+    margin-top: 0px;
+    margin-left: 15px;
+}
+
+#category h4{
+    text-align: center;
+    background-color: #27ddbf;
+    height: 20px;
 }
