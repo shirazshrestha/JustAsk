@@ -32,6 +32,7 @@ public class RegisterController extends HttpServlet {
             String firstname = req.getParameter("firstname");
             String lastname = req.getParameter("lastname");
             String email = req.getParameter("email");
+
             PreparedStatement statement = connection.prepareStatement("select * from user where username=? ");
             statement.setString(1, username);
 

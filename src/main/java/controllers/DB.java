@@ -1,7 +1,6 @@
 package controllers;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-
 import java.sql.Connection;
 
 public class DB {
