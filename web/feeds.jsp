@@ -53,10 +53,20 @@
 </div>
 <c:if test="${requestScope.get('feeds') != null}">
     <c:forEach items="${requestScope.get('feeds')}" var="feed">
-        <div class="questionAnswerDisplayArea">
+        <div id="questionAnswerDisplayArea">
             <a href="answer?id=${feed.getId()}">
-                <h3>${feed.getTitle()}</h3>
+                <h3 class="title">${feed.getTitle()}</h3>
             </a>
+            <!-- upvote Question -->
+            <a href="#" class="upvoteQuestion" data-id = "${feed.getId()}">
+                <img class="vote" src="images/upvote.png"></a>
+            <span>0</span>
+
+            <!-- downvote Question -->
+            <a href="#" class="downvoteQuestion">
+                <img class="vote" src="images/downvote.png"></a>
+            <span>0</span>
+
             <h6>Posted on: ${feed.getCreatedAt()}</h6>
 
         </div>
@@ -101,7 +111,25 @@
     </div>
 </div>
 </c:forEach>--%>
+<script>
+    window.onload = function () {
 
+        const upvotes = document.getElementsByClassName("upvoteQuestion");
+
+        for (let i = 0; i< upvotes.length; i++){
+            upvotes[i].addEventListener("click",function (evt) {
+                evt.preventDefault();
+                const id = this.attributes['data-id'].value;
+                fetch('upvote-question',{
+                    method: 'post',
+                    body: JSON.stringify({"id": id})
+                }).then(function (res) {
+                    console.log(res);
+                })
+            },false);
+        }
+    }
+</script>
 
 </body>
 </html>
