@@ -6,6 +6,10 @@ public class Question {
     private String title;
     private Integer userId;
 
+    public Question(){
+
+    }
+
     public Question(Integer id, String title, Integer userId) {
         this.id = id;
         this.title = title;
