@@ -37,9 +37,28 @@
         <div class="questionAnswerDisplayArea">
             <h3>${answer.getContent()}</h3>
             <h6>Posted on: ${answer.getCreatedAt()}</h6>
+            <a href="#" class="upvote" data-id="${answer.getId()}">upvote</a>
         </div>
     </c:forEach>
 </c:if>
 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('.upvote').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'answer-upvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    console.log(res);
+                }
+            });
+        })
+    })
+</script>
 </body>
 </html>
