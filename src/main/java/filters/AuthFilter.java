@@ -61,7 +61,7 @@ public class AuthFilter implements Filter {
 
         } catch (Exception e) {
             resp.sendRedirect(req.getContextPath() + "/login");
-            return;
+
         }
     }
 
