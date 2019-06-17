@@ -51,8 +51,26 @@
         <button id="justaskbtn" type="submit">JustAsk</button>
     </form>
 </div>
+<c:if test="${requestScope.get('feeds') != null}">
+    <c:forEach items="${requestScope.get('feeds')}" var="feed">
+        <div class="questionAnswerDisplayArea">
+            <a href="answer?id=${feed.getId()}">
+                <h3>${feed.getTitle()}</h3>
+            </a>
+            <h6>Posted on: ${feed.getCreatedAt()}</h6>
 
+        </div>
+    </c:forEach>
+</c:if>
+<%--<h1>List of feeds</h1>
 <c:forEach items="${requestScope.get('feeds')}" var="feed">
+<<<<<<< HEAD
+<div class="row card">
+    <div class="col-md-12">
+        <a href="/feeds/${feed.getId()}">
+            <h3>${feed.getTitle()}</h3>
+        </a>
+=======
     <div id="questionAnswerDisplayArea">
         <a href="${requestScope.getContextPath}/feed/${feed.getId()}">
             <h3 class="title">${feed.getTitle()}</h3>
@@ -79,6 +97,7 @@
         <a href="/feeds/${feed.getId()}">
             <h3>${feed.getTitle()}</h3>
         </a>
+>>>>>>> 26bfb33dc5b5bbd95589e36d516be9accd5e0b0c
     </div>
 </div>
 </c:forEach>--%>
