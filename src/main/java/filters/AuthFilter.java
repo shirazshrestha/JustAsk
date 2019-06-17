@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
         //allow user access login, register and home pages without
         //logging in
 
-        if (path.equals("/login") || path.equals("/register") || path.equals("") || path.endsWith(".css")) {
+        if (path.equals("/login") || path.equals("/register") || path.equals("") || path.endsWith(".css") || path.equals("/forgotpassword")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
 

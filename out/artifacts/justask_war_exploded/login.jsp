@@ -37,7 +37,7 @@
 
 
         <div class="container">
-            <span class="psw"><a href="#">Forgot password?</a></span>
+            <span class="psw"><a href="forgotpassword">Forgot password?</a></span>
         </div>
     </div>
 </form>
