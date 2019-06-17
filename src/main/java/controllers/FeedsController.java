@@ -1,5 +1,6 @@
 package controllers;
 
+import entity.Tag;
 import services.FeedService;
 
 import javax.servlet.ServletException;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/feed")
 public class FeedsController extends HttpServlet {
@@ -22,14 +26,13 @@ public class FeedsController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        Connection connection = DB.getConnection();
         try {
+            req.setAttribute("tags", service.getAllTags());
             req.setAttribute("feeds", service.getAllFeeds());
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
+            req.setAttribute("tags", new ArrayList<Tag>());
         }
-
         req.getRequestDispatcher("feeds.jsp").forward(req, resp);
     }
 
