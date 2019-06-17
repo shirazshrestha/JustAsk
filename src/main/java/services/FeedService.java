@@ -68,6 +68,7 @@ public class FeedService {
             while (results.next()) {
                 Question question = new Question();
                 question.setId(results.getInt("id"));
+                question.setCreatedAt(results.getString("created_at"));
                 question.setTitle(results.getString("title"));
                 questions.add(question);
             }
