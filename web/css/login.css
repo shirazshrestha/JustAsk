@@ -23,6 +23,17 @@ button {
     width: 125px;
 }
 
+#registerbtn{
+    text-decoration:none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 125px;
+}
+
 button:hover {
     opacity: 0.8;
 }

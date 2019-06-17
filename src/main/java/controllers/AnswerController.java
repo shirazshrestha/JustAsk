@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/feed/*")
+@WebServlet("/answer")
 public class AnswerController extends HttpServlet {
     Connection connection;
 
@@ -28,9 +29,8 @@ public class AnswerController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             //get the question_id from url
-            String uri = req.getRequestURI();
-            String[] params = uri.split("/");
-            String id = params[params.length - 1];
+            String id = req.getParameter("id");
+            System.out.println(id);
 
             //get question from database
             PreparedStatement statement = connection.prepareStatement("select * from question where id=?");
@@ -62,7 +62,7 @@ public class AnswerController extends HttpServlet {
 
             //get a list of all answers for this question
             statement = connection.prepareStatement("select * from answer where question_id=?");
-            statement.setString(1,question.getId().toString());
+            statement.setString(1, question.getId().toString());
             resultSet = statement.executeQuery();
 
             List<Answer> answers = new ArrayList<>();
@@ -72,21 +72,43 @@ public class AnswerController extends HttpServlet {
                 answer.setQuestionId(resultSet.getInt("question_id"));
                 answer.setContent(resultSet.getString("content"));
                 answer.setCreatedAt(resultSet.getString("created_at"));
+                answers.add(answer);
             }
 
             req.setAttribute("question", question);
             req.setAttribute("user", user);
             req.setAttribute("answers", answers);
+            System.out.println(answers.size());
+            req.getRequestDispatcher("answer.jsp").forward(req, resp);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            req.getRequestDispatcher("answer.jsp").forward(req, resp);
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        try{
+             String qid = req.getParameter("id");
+             String answer = req.getParameter("answer");
+
+            String userId = req.getSession().getAttribute("userId").toString();
+
+            PreparedStatement statement = connection.prepareStatement("insert into answer (question_id,content,user_id) values(?,?,?)");
+            statement.setString(1,qid);
+            statement.setString(2,answer);
+            statement.setString(3,userId);
+            statement.executeUpdate();
+
+
+
+            resp.sendRedirect(req.getContextPath() + "/answer?id=" + qid);
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
 
     }
 }

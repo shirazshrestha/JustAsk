@@ -55,7 +55,10 @@ public class QuestionController extends HttpServlet {
             String qid = result.getString("id");
             String[] tagArr = tags.split(",");
             for (String tag : tagArr) {
-               // statement = connection.prepareStatement("insert into question_tag ()")
+               statement = connection.prepareStatement("insert into question_tag (question_id,tag) values (?, ?)");
+               statement.setString(1, qid);
+               statement.setString(2, tag);
+               statement.executeUpdate();
             }
             resp.sendRedirect(req.getContextPath() + "/feed");
         } catch (Exception e) {
