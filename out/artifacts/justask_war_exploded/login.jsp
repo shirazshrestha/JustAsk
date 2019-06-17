@@ -26,7 +26,7 @@
             <input type="password" name="password" placeholder="Enter your password" required/> <br/>
 
             <button type="submit">Login</button>
-            <a href="register">Register</a>
+            <a id = "registerbtn" href="register">Register</a>
             <br/>
 
             <label>

@@ -40,6 +40,7 @@ public class AuthFilter implements Filter {
         //If user session is empty
         //force user to login
         if (session.getAttribute("userId") == null) {
+            System.out.println("User session is not set");
             resp.sendRedirect(req.getContextPath() + "/login");
             return;
         }
@@ -61,6 +62,7 @@ public class AuthFilter implements Filter {
             filterChain.doFilter(req, resp);
 
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             resp.sendRedirect(req.getContextPath() + "/login");
 
         }
