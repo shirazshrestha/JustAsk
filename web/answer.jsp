@@ -110,7 +110,7 @@
                         <li class="list-inline-item">
                             <a href="#" class="upvote" data-id="${answer.getId()}">
                                 <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
-                            <span>${answer.getUpVotes()}</span>
+                            <span class="count">${answer.getUpVotes()}</span>
                         </li>
                     </ul>
                 </div>
@@ -131,9 +131,9 @@
                 dataType: 'json',
                 data: {id},
                 success: (res) => {
-                    console.log(res);
+                    $(this).parent().find('span.count').html(res);
                 }
-            });
+            })
         });
     });
 </script>
