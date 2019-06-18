@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/answer-upvote")
 public class AnswerUpVoteController extends HttpServlet {
@@ -36,7 +38,6 @@ public class AnswerUpVoteController extends HttpServlet {
                 statement.executeUpdate();
             } else {
                 AnswerVote vote = new AnswerVote();
-                resultSet.next();
                 vote.setId(resultSet.getInt("id"));
                 vote.setAnswerId(resultSet.getInt("answer_id"));
                 vote.setUserId(resultSet.getInt("user_id"));
@@ -49,21 +50,19 @@ public class AnswerUpVoteController extends HttpServlet {
                     statement.executeUpdate();
                 }
             }
+
             statement = connection.prepareStatement("select count(*) as count, action from answer_voting where answer_id=? group by action");
             statement.setString(1, answerId);
             resultSet = statement.executeQuery();
-            HashMap<String, Integer> response = new HashMap<>();
-            if (resultSet.next()) {
-                response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes", resultSet.getInt("count"));
-                if (resultSet.next()) {
-                    response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes", resultSet.getInt("count"));
-                }
-            }
 
-            Gson gson = new Gson();
-            String json = gson.toJson(response);
-            resp.getWriter().write(json);
-        } catch (Exception e) {
+            Map<String, Integer> response = new HashMap<>();
+            while (resultSet.next()) {
+                response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes", resultSet.getInt("count"));
+            }
+            // GSON is not working
+            resp.getWriter().print(response.get("upvotes"));
+        } catch (SQLException e) {
+            System.out.println("An error occurred.");
             System.out.println(e.getMessage());
         }
     }
