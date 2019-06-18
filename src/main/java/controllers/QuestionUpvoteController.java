@@ -31,7 +31,7 @@ public class QuestionUpvoteController extends HttpServlet {
             String questionId = req.getParameter("id");
             String userId = req.getSession().getAttribute("userId").toString();
             Connection connection = DB.getConnection();
-
+            System.out.println("user" + userId);
             PreparedStatement statement = connection.prepareStatement("select * from question_voting where question_id=? and user_id=?");
             statement.setString(1, questionId);
             statement.setString(2, userId);
@@ -45,7 +45,6 @@ public class QuestionUpvoteController extends HttpServlet {
                 statement.executeUpdate();
             } else {
                 QuestionVote vote = new QuestionVote();
-                resultSet.next();
                 vote.setId(resultSet.getInt("id"));
                 vote.setQuestionId(resultSet.getInt("question_id"));
                 vote.setUserId(resultSet.getInt("user_id"));
@@ -62,13 +61,20 @@ public class QuestionUpvoteController extends HttpServlet {
             statement.setString(1, questionId);
             resultSet = statement.executeQuery();
             HashMap<String, Integer> response = new HashMap<>();
-            while (resultSet.next()){
-                response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes" , resultSet.getInt("count"));
+            while (resultSet.next()) {
+                response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes", resultSet.getInt("count"));
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(response);
-            resp.getWriter().write(json);
+            //GSON did not work
+            //Gson gson = new Gson();
+            //String json = gson.toJson(response);
+            resp.setHeader("Content-type","application/json");
+            Integer upvotes = response.get("upvotes");
+            upvotes = upvotes == null ? 0 : upvotes;
+            Integer downvotes = response.get("downvotes");
+            downvotes = downvotes == null ? 0 : downvotes;
+            resp.getWriter().write("{\"upvotes\":"+upvotes+",\"downvotes\":"+downvotes+"}");
         } catch (Exception e) {
+            System.out.println("TestTest");
             System.out.println(e.getMessage());
         }
 

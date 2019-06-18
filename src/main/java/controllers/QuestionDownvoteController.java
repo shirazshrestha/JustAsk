@@ -44,7 +44,6 @@ public class QuestionDownvoteController extends HttpServlet {
                 statement.executeUpdate();
             } else {
                 QuestionVote vote = new QuestionVote();
-                resultSet.next();
                 vote.setId(resultSet.getInt("id"));
                 vote.setQuestionId(resultSet.getInt("question_id"));
                 vote.setUserId(resultSet.getInt("user_id"));
@@ -64,9 +63,15 @@ public class QuestionDownvoteController extends HttpServlet {
             while (resultSet.next()){
                 response.put(resultSet.getInt("action") == 1 ? "upvotes" : "downvotes" , resultSet.getInt("count"));
             }
-            Gson gson = new Gson();
-            String json = gson.toJson(response);
-            resp.getWriter().write(json);
+            //GSON did not work
+            //Gson gson = new Gson();
+            //String json = gson.toJson(response);
+            resp.setHeader("Content-type","application/json");
+            Integer upvotes = response.get("upvotes");
+            upvotes = upvotes == null ? 0 : upvotes;
+            Integer downvotes = response.get("downvotes");
+            downvotes = downvotes == null ? 0 : downvotes;
+            resp.getWriter().write("{\"upvotes\":"+upvotes+",\"downvotes\":"+downvotes+"}");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
