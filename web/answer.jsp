@@ -8,7 +8,9 @@
 <html>
 <head>
     <title>Answer</title>
-    <link rel="stylesheet" href="css/answer.css">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/feeds.css">
+    <%--<link rel="stylesheet" href="css/answer.css">--%>
 </head>
 <body>
 
@@ -17,7 +19,7 @@
     <span id="title"><img src="images/logo.png" alt="logo"></span>
     <a href="logout">Logout</a>
     <a href="profile">Profile</a>
-    <a class="active" href="feed">Home</a>
+    <a class="active" href="feed">Feed</a>
 
 </div>
 
@@ -33,37 +35,89 @@
 </div>
 
 <div id="feedDisplayArea">
+
+    <div class="questionAnswerDisplayArea">
+        <div class="feed-content">
+            <div class="image">
+                <img src="https://api.adorable.io/avatars/48/abott@adorable" class="img img-responsive avatar"/>
+            </div>
+            <div class="q-title">
+                <h3 class="title">
+                    <a href="answer?id=${requestScope.get('question').getId()}">${requestScope.get('question').getTitle()}</a>
+                </h3>
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <strong class="texteffect">Posted on:</strong> ${requestScope.get('question').getCreatedAt()}
+                    </li>
+                    <li class="list-inline-item">
+                        <strong class="texteffect">By:</strong> ${requestScope.get('question').getQuestionUser()}
+                    </li>
+                    <li class="list-inline-item">
+                        <strong class="texteffect">Tags:</strong> ${requestScope.get('question').getTags()}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="feed-action">
+            <ul class="list-inline">
+                <li class="list-inline-item">
+                    <a href="#" class="upvoteQuestion" data-id="${requestScope.get('question').getId()}">
+                        <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
+                    <span>${requestScope.get('question').getUpVotes()}</span>
+                </li>
+                <li class="list-inline-item">
+                    <a href="#" class="downvoteQuestion">
+                        <img class="vote" src="images/downvote.png" alt="downvotebutton">
+                    </a>
+                    <span>${requestScope.get('question').getDownVotes()}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <form action="" method="POST">
         <!--<textarea name="questiontitle" id="questiontitle" cols="100" rows="8" placeholder="Post your query"></textarea>-->
         <input type="hidden" name="id" value="${requestScope.get("question").getId()}">
         <input type="text" name="answer" id="answer" placeholder="  Post your answer"/>
-
-        <button id="justaskbtn" type="submit">Answer</button>
+        <p style="text-align: right;">
+            <button id="justaskbtn" type="submit">Answer</button>
+        </p>
     </form>
+
+    <c:if test="${requestScope.get('answers') != null}">
+        <c:forEach items="${requestScope.get('answers')}" var="answer">
+            <div class="questionAnswerDisplayArea">
+                <div class="feed-content">
+                    <div class="image">
+                        <img src="https://api.adorable.io/avatars/48/abott@adorable.png"
+                             class="img img-responsive avatar"/>
+                    </div>
+                    <div class="q-title">
+                        <h3 class="title">
+                            <a href="#">${answer.getAnswerUser()}</a>
+                        </h3>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <strong class="texteffect">Posted on:</strong> ${answer.getCreatedAt()}
+                            </li>
+                        </ul>
+                    </div>
+                    <h3 class="answer-content">${answer.getContent()}</h3>
+                </div>
+                <div class="clearfix"></div>
+                <div class="feed-action">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">
+                            <a href="#" class="upvote" data-id="${answer.getId()}">
+                                <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
+                            <span>${answer.getUpVotes()}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </c:forEach>
+    </c:if>
 </div>
-
-<%--display question title--%>
-<div id="queTitleForAnswerPage">
-    <h2>Q. ${question.getTitle()}</h2>
-</div>
-
-<%--display all answers of the question--%>
-<c:if test="${requestScope.get('answers') != null}">
-    <c:forEach items="${requestScope.get('answers')}" var="answer">
-        <div id="questionAnswerDisplayArea">
-            <h3 class="answercontent">A. ${answer.getContent()}</h3>
-            <h6 class="postedon">Posted on: ${answer.getCreatedAt()}</h6>
-
-                <%--<a href="#" class="upvote" data-id="${answer.getId()}">upvote</a>--%>
-
-            <!-- upvote Question -->
-            <a href="#" class="upvote" data-id="${answer.getId()}">
-                <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
-            <span>0</span>
-
-        </div>
-    </c:forEach>
-</c:if>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
 <script>
@@ -76,13 +130,12 @@
                 type: 'post',
                 dataType: 'json',
                 data: {id},
-                success: (res) = > {
-                console.log(res);
-        }
-        })
-            ;
-        })
-    })
+                success: (res) => {
+                    console.log(res);
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>
