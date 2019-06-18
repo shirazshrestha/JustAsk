@@ -5,6 +5,10 @@ public class Answer {
     private Integer questionId;
     private String content;
     private String createdAt;
+    private String updatedAt;
+    private Integer userId;
+    private String answerUser;
+    private Integer upVotes;
 
     public Answer(){
     }
@@ -39,5 +43,37 @@ public class Answer {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getAnswerUser() {
+        return answerUser;
+    }
+
+    public void setAnswerUser(String answerUser) {
+        this.answerUser = answerUser;
+    }
+
+    public Integer getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(Integer upVotes) {
+        this.upVotes = upVotes;
     }
 }

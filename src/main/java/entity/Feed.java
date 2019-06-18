@@ -4,6 +4,14 @@ public class Feed {
     private String title;
     private Integer id;
     private Integer upVotes;
+    private Integer downVotes;
+    private Integer userId;
+    private String answerUser;
+    private String questionUser;
+    private String answer;
+    private String tags;
+    private String createdAt;
+    private String updatedAt;
 
     public Integer getUpVotes() {
         return upVotes;
@@ -21,14 +29,6 @@ public class Feed {
         this.downVotes = downVotes;
     }
 
-    private Integer downVotes;
-    private Integer userId;
-    private String answerUser;
-    private String questionUser;
-    private String answer;
-    private String tags;
-    private String createdAt;
-    private String updatedAt;
 
     public Feed() {
         title = "";
