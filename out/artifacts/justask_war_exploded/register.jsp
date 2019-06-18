@@ -12,11 +12,13 @@
 <body>
 
 <h1>JustAsk!</h1>
-<h5>Post your queries and get answers. <em>Simple as that!</em></h5>
+<h4>Post your queries and get answers. <em>Simple as that!</em></h4>
 
 <form action="register" method="post" enctype="application/x-www-form-urlencoded">
     <div class="box">
         <div class="container">
+            <span id="updatenewpw">Register</span>
+            <br />
             <%if (request.getAttribute("message") != null) { %>
             <p style="color: #DD0000;">${requestScope.get("message")}</p>
             <% } %>
