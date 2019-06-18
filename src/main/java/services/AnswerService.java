@@ -11,48 +11,22 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FeedService {
+public class AnswerService {
     Connection connection;
 
-    public FeedService() {
-
-        connection = DB.getConnection();
+    public AnswerService() {
+        this.connection = DB.getConnection();
     }
 
     public List<Feed> getAllFeeds() {
         try {
-            ResultSet result = connection.prepareStatement("select \n" +
-                    "q.*, a.content as answer, a.user as answerUser, concat(u.first_name,' ',u.last_name) as questionUser,\n" +
-                    "t.tags, upvote.count as upvotes, downvote.count as downvotes\n" +
-                    "from question q\n" +
-                    "left join (\n" +
-                    "\tSELECT a.*,concat(u.first_name,' ',u.last_name) as user \n" +
-                    "\tFROM answer a\n" +
-                    "    inner join user u on a.user_id = u.id\n" +
-                    "\tWHERE a.id = (\n" +
-                    "\t\tSELECT max(id)\n" +
-                    "\t\tFROM answer\n" +
-                    "\t\tWHERE a.question_id = question_id\n" +
-                    "\t)\n" +
-                    ") a on a.question_id = q.id\n" +
-                    "inner join user u on u.id = q.user_id\n" +
-                    "left join (select group_concat(tag,',') as tags, question_id from question_tag group by question_id) t on t.question_id=q.id\n" +
-                    "left join (select count(*) as count, question_id from question_voting where action = 1 group by question_id) upvote on upvote.question_id = q.id\n" +
-                    "left join (select count(*) as count, question_id from question_voting where action = 0 group by question_id) downvote on downvote.question_id = q.id\n" +
-                    "ORDER by created_at desc\n" +
-                    "LIMIT 0,10").executeQuery();
+            ResultSet result = connection.prepareStatement("select * from question LIMIT 5").executeQuery();
             List<Feed> feeds = new ArrayList<>();
             while (result.next()) {
                 Feed feed = new Feed();
                 feed.setId(result.getInt("id"));
                 feed.setTitle(result.getString("title"));
                 feed.setCreatedAt(result.getString("created_at"));
-                feed.setAnswer(result.getString("answer"));
-                feed.setAnswerUser(result.getString("answerUser"));
-                feed.setQuestionUser(result.getString("questionUser"));
-                feed.setTags(result.getString("tags"));
-                feed.setUpVotes(result.getInt("upvotes"));
-                feed.setDownVotes(result.getInt("downvotes"));
                 feeds.add(feed);
             }
             return feeds;

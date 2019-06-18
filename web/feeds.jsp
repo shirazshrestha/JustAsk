@@ -23,7 +23,7 @@
 </c:forEach>--%>
 
 <div class="topnav">
-    <span id="title">JustAsk!</span>
+    <span id="title"><img src="images/logo.png" alt="logo"></span>
     <a href="logout">Logout</a>
     <a href="profile">Profile</a>
     <a class="active" href="feed">Home</a>
@@ -31,7 +31,7 @@
 </div>
 
 <div id="category">
-    Categories
+    <h4> Categories </h4>
     <ul id="categoryList">
         <c:forEach items="${requestScope.get('tags')}" var="tag">
             <li>
@@ -42,8 +42,6 @@
 </div>
 
 <div id="feedDisplayArea">
-
-
     <form action="question" method="POST">
         <!--<textarea name="questiontitle" id="questiontitle" cols="100" rows="8" placeholder="Post your query"></textarea>-->
         <input type="text" name="questiontitle" id="questiontitle" placeholder="    Post your query">
@@ -55,19 +53,19 @@
     <c:forEach items="${requestScope.get('feeds')}" var="feed">
         <div id="questionAnswerDisplayArea">
             <a href="answer?id=${feed.getId()}">
-                <h3 class="title">${feed.getTitle()}</h3>
+                <h3 class="title">Q. ${feed.getTitle()}</h3>
             </a>
             <!-- upvote Question -->
             <a href="#" class="upvoteQuestion" data-id = "${feed.getId()}">
-                <img class="vote" src="images/upvote.png"></a>
+                <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
             <span>0</span>
 
             <!-- downvote Question -->
             <a href="#" class="downvoteQuestion">
-                <img class="vote" src="images/downvote.png"></a>
+                <img class="vote" src="images/downvote.png" alt="downvotebutton"></a>
             <span>0</span>
 
-            <h6>Posted on: ${feed.getCreatedAt()}</h6>
+            <h6 class="postedon">Posted on: ${feed.getCreatedAt()}</h6>
 
         </div>
     </c:forEach>

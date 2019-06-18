@@ -3,6 +3,8 @@ package controllers;
 import entity.Answer;
 import entity.Question;
 import entity.User;
+import services.AnswerService;
+import services.FeedService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,14 +22,26 @@ import java.util.List;
 @WebServlet("/answer")
 public class AnswerController extends HttpServlet {
     Connection connection;
+    AnswerService service;
 
     public AnswerController() {
         connection = DB.getConnection();
+        service = new AnswerService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            //Get All Tags
+            req.setAttribute("tags", service.getAllTags());
+            String tag = req.getParameter("tag");
+            if(tag != null){
+                req.setAttribute("feeds", service.getFeedsByTag(tag));
+            }else{
+                req.setAttribute("feeds", service.getAllFeeds());
+            }
+
+
             //get the question_id from url
             String id = req.getParameter("id");
             System.out.println(id);
@@ -80,6 +94,10 @@ public class AnswerController extends HttpServlet {
             req.setAttribute("answers", answers);
             System.out.println(answers.size());
             req.getRequestDispatcher("answer.jsp").forward(req, resp);
+
+
+
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
