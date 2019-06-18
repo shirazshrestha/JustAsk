@@ -107,7 +107,7 @@
                             <span>${feed.getUpVotes()}</span>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#" class="downvoteQuestion">
+                            <a href="#" class="downvoteQuestion" data-id="${feed.getId()}">
                                 <img class="vote" src="images/downvote.png" alt="downvotebutton">
                             </a>
                             <span>${feed.getDownVotes()}</span>
@@ -118,6 +118,38 @@
         </c:forEach>
     </c:if>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('.upvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-upvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    console.log(res);
+                }
+            });
+        });
+        $('.downvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-downvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    console.log(res);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
