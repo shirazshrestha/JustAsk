@@ -127,3 +127,21 @@ input[type="text"]{
     background-color: #27ddbf;
     height: 20px;
 }
+
+.answercontent{
+    margin-left: 15px;
+    display:inline;
+}
+
+#queTitleForAnswerPage{
+    float: right;
+    background-color: #4CAF50;
+    color: #ffffff;
+    margin-top: 20px;
+    width: 80%;
+}
+
+/*
+#queTitleForAnswerPage h2{
+    color: #DD0000;
+}*/

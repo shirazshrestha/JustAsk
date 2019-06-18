@@ -3,7 +3,30 @@ package entity;
 public class Feed {
     private String title;
     private Integer id;
+    private Integer upVotes;
+
+    public Integer getUpVotes() {
+        return upVotes;
+    }
+
+    public void setUpVotes(Integer upVotes) {
+        this.upVotes = upVotes;
+    }
+
+    public Integer getDownVotes() {
+        return downVotes;
+    }
+
+    public void setDownVotes(Integer downVotes) {
+        this.downVotes = downVotes;
+    }
+
+    private Integer downVotes;
     private Integer userId;
+    private String answerUser;
+    private String questionUser;
+    private String answer;
+    private String tags;
     private String createdAt;
     private String updatedAt;
 
@@ -58,6 +81,38 @@ public class Feed {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getAnswerUser() {
+        return answerUser;
+    }
+
+    public void setAnswerUser(String answerUser) {
+        this.answerUser = answerUser;
+    }
+
+    public String getQuestionUser() {
+        return questionUser;
+    }
+
+    public void setQuestionUser(String questionUser) {
+        this.questionUser = questionUser;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }
 

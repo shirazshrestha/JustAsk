@@ -35,10 +35,6 @@ public class FeedsController extends HttpServlet {
             }else{
                 req.setAttribute("feeds", service.getAllFeeds());
             }
-
-
-
-
         } catch (Exception e) {
             e.getMessage();
             req.setAttribute("tags", new ArrayList<Tag>());

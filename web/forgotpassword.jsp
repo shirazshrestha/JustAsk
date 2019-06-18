@@ -14,34 +14,32 @@
 <h1>JustAsk!</h1>
 
 <h4>Post your queries and get answers. <em>Simple as that!</em></h4>
-<form action="login" method="post" enctype="application/x-www-form-urlencoded">
+<form action="forgotpassword" method="post" enctype="application/x-www-form-urlencoded">
     <div class="box">
         <div class="container">
-            <span id="updatenewpw">Login to JustAsk!</span>
-            <br/>
+
+            <span id="updatenewpw">Update New Password</span>
+            <br />
 
             <%if (request.getAttribute("message") != null) { %>
             <p style="color: #DD0000;">${requestScope.get("message")}</p>
             <% } %>
+
             <label for="username"><b>Username</b></label><br/>
             <input type="text" name="username" placeholder="Enter your username" required/> <br/>
 
-            <label for="password"><b>Password</b></label><br/>
-            <input type="password" name="password" placeholder="Enter your password" required/> <br/>
+            <label for="password"><b>New Password</b></label><br/>
+            <input type="password" name="newpassword" placeholder="Enter your new password" required/> <br/>
 
-            <button type="submit">Login</button>
-            <a id="registerbtn" href="register">Register</a>
+            <button type="submit">Update PW</button>
+            <a id = "registerbtn" href="login">Back to Login</a>
             <br/>
 
-            <label>
-                <input type="checkbox" name="remember">Remember me
-            </label>
+
         </div>
 
 
-        <div class="container">
-            <span class="psw"><a href="forgotpassword">Forgot password?</a></span>
-        </div>
+
     </div>
 </form>
 
