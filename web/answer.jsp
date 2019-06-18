@@ -62,14 +62,15 @@
             <ul class="list-inline">
                 <li class="list-inline-item">
                     <a href="#" class="upvoteQuestion" data-id="${requestScope.get('question').getId()}">
-                        <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
-                    <span>${requestScope.get('question').getUpVotes()}</span>
+                        <img class="vote" src="images/upvote.png" alt="upvotebutton">
+                    </a>
+                    <span class="count-upvotes">${requestScope.get('question').getUpVotes()}</span>
                 </li>
                 <li class="list-inline-item">
-                    <a href="#" class="downvoteQuestion">
+                    <a href="#" class="downvoteQuestion" data-id="${requestScope.get('question').getId()}">
                         <img class="vote" src="images/downvote.png" alt="downvotebutton">
                     </a>
-                    <span>${requestScope.get('question').getDownVotes()}</span>
+                    <span class="count-downvotes">${requestScope.get('question').getDownVotes()}</span>
                 </li>
             </ul>
         </div>
@@ -109,7 +110,8 @@
                     <ul class="list-inline">
                         <li class="list-inline-item">
                             <a href="#" class="upvote" data-id="${answer.getId()}">
-                                <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
+                                <img class="vote" src="images/upvote.png" alt="upvotebutton">
+                            </a>
                             <span class="count">${answer.getUpVotes()}</span>
                         </li>
                     </ul>
@@ -134,6 +136,34 @@
                     $(this).parent().find('span.count').html(res);
                 }
             })
+        });
+        $('.upvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-upvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    $(this).parents('.feed-action').find(".count-upvotes").html(res.upvotes);
+                    $(this).parents('.feed-action').find(".count-downvotes").html(res.downvotes);
+                }
+            });
+        });
+        $('.downvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-downvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    $(this).parents('.feed-action').find(".count-upvotes").html(res.upvotes);
+                    $(this).parents('.feed-action').find(".count-downvotes").html(res.downvotes);
+                }
+            });
         });
     });
 </script>

@@ -104,13 +104,13 @@
                         <li class="list-inline-item">
                             <a href="#" class="upvoteQuestion" data-id="${feed.getId()}">
                                 <img class="vote" src="images/upvote.png" alt="upvotebutton"></a>
-                            <span>${feed.getUpVotes()}</span>
+                            <span class="count-upvotes">${feed.getUpVotes()}</span>
                         </li>
                         <li class="list-inline-item">
-                            <a href="#" class="downvoteQuestion">
+                            <a href="#" class="downvoteQuestion" data-id="${feed.getId()}">
                                 <img class="vote" src="images/downvote.png" alt="downvotebutton">
                             </a>
-                            <span>${feed.getDownVotes()}</span>
+                            <span class="count-downvotes">${feed.getDownVotes()}</span>
                         </li>
                     </ul>
                 </div>
@@ -118,6 +118,40 @@
         </c:forEach>
     </c:if>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        $('.upvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-upvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                   $(this).parents('.feed-action').find(".count-upvotes").html(res.upvotes);
+                   $(this).parents('.feed-action').find(".count-downvotes").html(res.downvotes);
+                }
+            });
+        });
+        $('.downvoteQuestion').click(function (e) {
+            e.preventDefault();
+            const id = this.attributes['data-id'].value;
+            $.ajax({
+                url: 'question-downvote',
+                type: 'post',
+                dataType: 'json',
+                data: {id},
+                success: (res) => {
+                    $(this).parents('.feed-action').find(".count-upvotes").html(res.upvotes);
+                    $(this).parents('.feed-action').find(".count-downvotes").html(res.downvotes);
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 </html>
